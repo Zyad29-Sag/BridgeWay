@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/*
+  Design tokens, sampled from the swatches in the Figma "Design System" frame.
+  (Verify against Figma's Colors panel if you can; sampled from a screenshot.)
+*/
+@theme {
+  --color-lime: #eff36a;   /* primary yellow */
+  --color-plum: #3f3047;   /* dark brand colour / text */
+  --color-steel: #5171a4;  /* blue */
+  --color-sage: #9ac995;   /* green */
+  --color-mint: #e7f0eb;   /* pale green-grey surface */
+  --color-mauve: #6b5f73;  /* muted purple */
+  --color-danger: #d54545; /* red */
+
+  /* Body text uses Inter; headings and the wordmark use General Sans (per the design system) */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "General Sans", "Inter", system-ui, sans-serif;
+
+  /* Animations: Tailwind has no preset for these, so they live here as tokens. */
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-white font-sans text-plum antialiased; }
+  h1, h2, h3 { @apply font-display; }
+  /* Keyboard focus ring that matches the brand */
+  :focus-visible { @apply outline-2 outline-offset-2 outline-steel; }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
